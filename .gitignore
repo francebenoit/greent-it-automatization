@@ -5,6 +5,13 @@ jspm_packages
 # Serverless directories
 .serverless
 
+#tests
 coverage
-uploads
+.nyc_output
 
+#files
+uploads
+footprintReport.xls
+
+.idea
+.env
