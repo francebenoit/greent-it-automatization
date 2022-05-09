@@ -11,7 +11,7 @@ coverage
 
 #files
 uploads
-footprintReport.xls
+footPrintReport.xls
 
 .idea
 .env

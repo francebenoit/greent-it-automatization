@@ -1,52 +1,52 @@
-'use strict'
+'use strict';
 
 class GreenITDataAverage {
 
-  _requestNumber;
-  _sizeKb;
-  _domSize;
-  _ecoIndex;
-  _rank;
+	_requestNumber;
+	_sizeKb;
+	_domSize;
+	_ecoIndex;
+	_rank;
 
-  get requestNumber() {
-    return this._requestNumber;
-  }
+	get requestNumber() {
+		return this._requestNumber;
+	}
 
-  set requestNumber(value) {
-    this._requestNumber = value;
-  }
+	set requestNumber(value) {
+		this._requestNumber = value;
+	}
 
-  get sizeKb() {
-    return this._sizeKb;
-  }
+	get sizeKb() {
+		return this._sizeKb;
+	}
 
-  set sizeKb(value) {
-    this._sizeKb = value;
-  }
+	set sizeKb(value) {
+		this._sizeKb = value;
+	}
 
-  get domSize() {
-    return this._domSize;
-  }
+	get domSize() {
+		return this._domSize;
+	}
 
-  set domSize(value) {
-    this._domSize = value;
-  }
+	set domSize(value) {
+		this._domSize = value;
+	}
 
-  get ecoIndex() {
-    return this._ecoIndex;
-  }
+	get ecoIndex() {
+		return this._ecoIndex;
+	}
 
-  set ecoIndex(value) {
-    this._ecoIndex = value;
-  }
+	set ecoIndex(value) {
+		this._ecoIndex = value;
+	}
 
-  get rank() {
-    return this._rank;
-  }
+	get rank() {
+		return this._rank;
+	}
 
-  set rank(value) {
-    this._rank = value;
-  }
+	set rank(value) {
+		this._rank = value;
+	}
 }
 
 module.exports = GreenITDataAverage;
