@@ -4,7 +4,7 @@ const https = require('https');
 class SimilarWeb {
 	async getTotalVisitPerMonth(url) {
 		try {
-			let httpPromise = getApiCallPromise();
+			const httpPromise = getApiCallPromise();
 			let responseBody = await httpPromise;
 			responseBody = JSON.parse(responseBody);
 
@@ -18,7 +18,7 @@ class SimilarWeb {
 		 * @returns {Promise}
 		 */
 		function getApiCallPromise() {
-			var apiKey = process.env.SIMILAR_WEB_API_KEY;
+			const apiKey = process.env.SIMILAR_WEB_API_KEY;
 
 			return new Promise((resolve, reject) => {
 				const options = {
@@ -34,14 +34,14 @@ class SimilarWeb {
 				};
 
 				https.get(options, (response) => {
-					let chunks_of_data = [];
+					const chunks_of_data = [];
 
 					response.on('data', (fragments) => {
 						chunks_of_data.push(fragments);
 					});
 
 					response.on('end', () => {
-						let response_body = Buffer.concat(chunks_of_data);
+						const response_body = Buffer.concat(chunks_of_data);
 						resolve(response_body.toString());
 					});
 

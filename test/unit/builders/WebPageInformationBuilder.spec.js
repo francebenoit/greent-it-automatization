@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
 
-const WebPageInformationBuilder = require('../../app/builders/WebPageInformationBuilder');
+const WebPageInformationBuilder = require('../../../app/builders/WebPageInformationBuilder');
 
 describe('WebPageInformationBuilder', () => {
 	it('build web page information with correct type and sanitized url when input is string', () => {

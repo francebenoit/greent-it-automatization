@@ -10,7 +10,7 @@ class Interface {
    
 		this.name = name;
 		this.methods = [];
-		for (let method of methods) {
+		for (const method of methods) {
 			if (typeof method !== 'string') {
 				throw new Error('The "methods" argument must contains only string');
 			}
@@ -23,13 +23,13 @@ class Interface {
 			throw new Error('The "interfaces" argument must be a non-empty array of Interface');
 		}
       
-		for (let itf of interfaces) {
+		for (const itf of interfaces) {
 			if (itf.constructor !== Interface) {
 				throw new Error('The "interfaces" argument must contains instances of Interface');
 			}
         
 			const missingMethods = [];
-			for (let method of itf.methods) {
+			for (const method of itf.methods) {
 				if (!object[method] || typeof object[method] !== 'function') {
 					missingMethods.push(method);
 				}

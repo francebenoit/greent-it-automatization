@@ -15,7 +15,7 @@ class WebPageInformationBuilder {
 	 * @returns {WebPageInformation}
 	 */
 	execute(url, requestNumber, sizeKb, domSize, ges, waterConsumptionCL, ecoIndex, rank) {
-		var webPageInformation = new WebPageInformation();
+		const webPageInformation = new WebPageInformation();
 
 		webPageInformation.url = url.replace(/["]+/g, '');
 		webPageInformation.requestNumber = parseInt(requestNumber);

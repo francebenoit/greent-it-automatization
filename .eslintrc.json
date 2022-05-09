@@ -4,7 +4,8 @@
         "commonjs": true,
         "es2021": true,
         "node" : true,
-        "mocha": true
+        "mocha": true,
+        "es6" : true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -27,6 +28,15 @@
             "error",
             "always"
         ],
+        "no-unneeded-ternary" : [
+            "error",
+            { "defaultAssignment": false }
+        ],
+        "prefer-const": ["error", {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+        }],
+        "no-var" : "error",
         "mocha-no-only/mocha-no-only": [
             "error"
         ],

@@ -24,7 +24,6 @@ class CsvToModel {
 	 * @returns {GreenItDataWrapper}
 	 */
 	async execute(csvPath) {
-       
 		const fileContent = await fs.readFile(csvPath);
 		const records = parse(fileContent, {columns: false ,quote: '',delimiter:';',trim:true});
 
@@ -53,8 +52,8 @@ class CsvToModel {
 		 * @returns {GreenItDataWrapper}
 		 */
 		function createModel() {
-			var greenITDataWrapper = new GreenItDataWrapper();
-			var webPageInformationBuilder = new WebPageInformationBuilder();
+			const greenITDataWrapper = new GreenItDataWrapper();
+			const webPageInformationBuilder = new WebPageInformationBuilder();
 
 			records.forEach(row => {
 				greenITDataWrapper.addWebPageInformation(

@@ -1,4 +1,4 @@
-const WebPageInformationBuilder = require('../../app/builders/WebPageInformationBuilder');
+const WebPageInformationBuilder = require('../../../app/builders/WebPageInformationBuilder');
 
 class WebPageInformationProvider {
 	static getTestListData() {
