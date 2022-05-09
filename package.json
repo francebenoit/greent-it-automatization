@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "serve": "nodemon app.js",
-    "test": "mocha test/*/*.spec.js"
+    "test": "mocha test/*/*.spec.js",
+    "lint-app" : "npx eslint app --fix",
+    "lint-test" : "npx eslint test --fix",
+    "lint" : "npm run lint-app && npm run lint-test"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +28,9 @@
     "serverless-http": "^3.0.1"
   },
   "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "eslint-plugin-mocha-no-only": "^1.1.1",
     "mocha": "^9.2.2",
     "sinon": "^13.0.2"
   }
