@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "serve": "nodemon app.js",
-    "test:unit": "mocha --recursive test/unit",
     "lint:app": "npx eslint app --fix",
     "lint:test": "npx eslint test --fix",
     "lint": "npm run lint:app && npm run lint:test",
+    "test:unit": "mocha --recursive test/unit",
     "test:e2e": "concurrently -k -s first 'cross-env NODE_ENV=test node app.js' 'wait-on http://localhost:3033/ && cross-env NODE_ENV=test mocha --recursive test/e2e/'",
     "test:e2e-file": "concurrently -k -s first 'cross-env NODE_ENV=test node app.js' 'wait-on http://localhost:3033/ && cross-env NODE_ENV=test mocha $FILE'",
     "test": "npm run test:unit && npm run test:e2e",
