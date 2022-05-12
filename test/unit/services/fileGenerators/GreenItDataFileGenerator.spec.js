@@ -3,7 +3,7 @@
 const assert = require('assert');
 const fs = require('fs');
 
-const GreenITDataExcelGenerator = require('../../../app/services/fileGenerators/GreenITDataExcelGenerator');
+const GreenITDataExcelGenerator = require('../../../../app/services/fileGenerators/GreenITDataExcelGenerator');
 const GreenITDataProvider = require('../../providers/GreenITDataProvider');
 
 describe('GreenITDataExcelGenerator', () => {
@@ -12,7 +12,7 @@ describe('GreenITDataExcelGenerator', () => {
 		const generator = new GreenITDataExcelGenerator();
 		const filename = 'fileAssertion.xls';
 
-		var actualFilePath = __dirname+'/../../../' + filename;
+		const actualFilePath = __dirname+'/../../../../' + filename;
 
 		if (fs.existsSync(actualFilePath)) {
 			fs.unlinkSync(actualFilePath);
@@ -20,10 +20,10 @@ describe('GreenITDataExcelGenerator', () => {
 
 		generator.createFile(greenItDataWrapper, filename);
 
-		var actualFile = fs.readFileSync(actualFilePath);
+		const actualFile = fs.readFileSync(actualFilePath);
 
-		var expectedFilePath = __dirname+'/../../files/fileAssertion.xls';
-		var expectedFile = fs.readFileSync(expectedFilePath);
+		const expectedFilePath = __dirname+'/../../../files/fileAssertion.xls';
+		const expectedFile = fs.readFileSync(expectedFilePath);
 
 		assert.equal(actualFile.toString(),expectedFile.toString());
 		fs.unlinkSync(actualFilePath);

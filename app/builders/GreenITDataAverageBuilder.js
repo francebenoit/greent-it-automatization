@@ -42,14 +42,14 @@ class GreenITDataAverageBuilder {
 	 * @returns {GreenDataAverage}
 	 */
 	buildGreenDataAverage(webPageInformationNumber) {
-		var greenDataAverage = new GreenDataAverage();
+		const greenDataAverage = new GreenDataAverage();
 
 		greenDataAverage.requestNumber = this._requestNumberTotal / webPageInformationNumber;
 		greenDataAverage.sizeKb = this._sizeKbTotal / webPageInformationNumber;
 		greenDataAverage.domSize = this._domSizeTotal / webPageInformationNumber;
 		greenDataAverage.ecoIndex = Math.round(this._ecoIndexTotal / webPageInformationNumber  * 100) / 100;
 
-		var rankAverageInNumber = this._rankTotal / webPageInformationNumber;
+		const rankAverageInNumber = this._rankTotal / webPageInformationNumber;
 		greenDataAverage.rank = this.convertRankAverageToLetter(rankAverageInNumber);
 
 		return greenDataAverage;

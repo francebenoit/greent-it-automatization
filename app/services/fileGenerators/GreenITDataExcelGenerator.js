@@ -44,14 +44,14 @@ class GreenITDataExcelGenerator {
 	async createFile(greenItData, filename) {
 		removeOldFile();
 
-		var excelData='';
+		let excelData='';
 		excelData+=generateRowHeaders();
 		excelData+=generateWebPageInformationRows();
 		excelData+=addRowBreak();
 		excelData+=generateAverageRow(greenItData.greenDataAverage);
 		excelData+=generateNavigationFootprint(greenItData);
 
-		var annualFootprint = greenItData.annualFootprint;
+		const annualFootprint = greenItData.annualFootprint;
 		excelData+=generateTrafficRow(annualFootprint.traffic);
 		excelData+=generateAnnualTrafficLowUnit(annualFootprint);
 		excelData+=generateAnnualTrafficHighUnit(annualFootprint);
@@ -71,7 +71,7 @@ class GreenITDataExcelGenerator {
 		 * @returns {void}
 		 */
 		function removeOldFile() {
-			var actualFilePath = __dirname + '/../../../' + FILE_NAME;
+			const actualFilePath = __dirname + '/../../../' + FILE_NAME;
 
 			if (fs.existsSync(actualFilePath)) {
 				fs.unlinkSync(actualFilePath);
@@ -82,8 +82,8 @@ class GreenITDataExcelGenerator {
 		 * @returns {string}
 		 */
 		function generateRowHeaders() {
-			var row = '';
-			for (var j = 0; j < HEADERS.length; j++) {
+			let row = '';
+			for (let j = 0; j < HEADERS.length; j++) {
 				row+=HEADERS[j] + DELIMITER;
 			}
 			return row + ROW_BREAK;
@@ -93,10 +93,10 @@ class GreenITDataExcelGenerator {
 		 * @returns {string} string
 		 */
 		function generateWebPageInformationRows() {
-			var webPageInformationList = greenItData.webPageInformationList;
-			var excelData = '';
+			const webPageInformationList = greenItData.webPageInformationList;
+			let excelData = '';
 
-			for (var i = 0; i < webPageInformationList.length; i++) {
+			for (let i = 0; i < webPageInformationList.length; i++) {
 				excelData += generateWebPageInformationRow(webPageInformationList[i]);
 			}
 			return excelData;

@@ -1,9 +1,9 @@
 'use strict';
 
 const WebPageInformationProvider = require('./WebPageInformationProvider');
-const GreenITDataWrapper = require('../../app/models/GreenITDataWrapper');
-const GreenITDataAverage = require('../../app/models/GreenITDataAverage');
-const AnnualFootprint = require('../../app/models/AnnualFootprint');
+const GreenITDataWrapper = require('../../../app/models/GreenITDataWrapper');
+const GreenITDataAverage = require('../../../app/models/GreenITDataAverage');
+const AnnualFootprint = require('../../../app/models/AnnualFootprint');
 
 class GreenITDataProvider {
 	static getTestDataWithWebPageInformationList() {
@@ -23,7 +23,7 @@ class GreenITDataProvider {
 	 */
 	static getTestDataWithAllInformation() {
 
-		var greenItDataWrapper = this.getTestDataWithWebPageInformationList();
+		const greenItDataWrapper = this.getTestDataWithWebPageInformationList();
 		greenItDataWrapper.greenDataAverage = this.buildGreenDataAverage();
 		greenItDataWrapper.annualFootprint = this.buildAnnualFootprint();
 
@@ -34,7 +34,7 @@ class GreenITDataProvider {
 	}
 
 	static buildGreenDataAverage() {
-		var greenDataAverage = new GreenITDataAverage();
+		const greenDataAverage = new GreenITDataAverage();
 		greenDataAverage.requestNumber = 125;
 		greenDataAverage.sizeKb = 6199;
 		greenDataAverage.domSize = 1675;
@@ -45,7 +45,7 @@ class GreenITDataProvider {
 	}
 
 	static buildAnnualFootprint() {
-		var annualFootprint = new AnnualFootprint();
+		const annualFootprint = new AnnualFootprint();
 
 		annualFootprint.traffic = 1980000;
 		annualFootprint.gesInGCO2 = 11880000;

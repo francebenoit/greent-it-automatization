@@ -62,7 +62,7 @@ class AnnualFootprintBuilder {
 	 * @param {GreenITDataWrapper} greenITDataWrapper
 	 */
 	buildGesEmission(greenITDataWrapper) {
-		var annualGesInGCO2 = greenITDataWrapper.gesTotalInG * this._annualTraffic;
+		const annualGesInGCO2 = greenITDataWrapper.gesTotalInG * this._annualTraffic;
 
 		this._annualFootprint.gesInGCO2 = annualGesInGCO2;
 		this._annualFootprint.carKm = annualGesInGCO2 / CAR_EMISSION_IN_G;
@@ -72,7 +72,7 @@ class AnnualFootprintBuilder {
 	}
 
 	roundData() {
-		for (var property in this._annualFootprint) {
+		for (const property in this._annualFootprint) {
 			if (Object.prototype.hasOwnProperty.call(this._annualFootprint,property) && !isNaN(this._annualFootprint[property])) {
 				this._annualFootprint[property] = Math.round(this._annualFootprint[property] * 100) / 100;
 			}

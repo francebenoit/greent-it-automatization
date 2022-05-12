@@ -2,11 +2,12 @@
 
 const CsvToModel = require ('../services/CsvToModel');
 const SimilarWeb = require('../services/webTraffic/SimilarWeb');
+const WebTrafficStub = require('../services/webTraffic/WebTrafficStub');
 const Interface = require('../Interface');
 const WebTrafficInterface = require('../services/webTraffic/WebTrafficInterface');
 const GreenITDataAverageBuilder = require('./GreenITDataAverageBuilder');
 const AnnualFootprintBuilder = require('./AnnualFootprintBuilder');
- 
+const NODE_TEST_ENV = 'test';
 
 class GreenITDataWrapperBuilder {
 	/**
@@ -16,12 +17,17 @@ class GreenITDataWrapperBuilder {
 	 * @param {AnnualFootprintBuilder} annualFootprintBuilder
 	 */
 	constructor(csvToModel = null, webTraffic = null, greenDataAverageBuilder = null, annualFootprintBuilder = null) {
-		this.csvToModel = csvToModel ? csvToModel : new CsvToModel();
-		this.webTraffic = webTraffic ? webTraffic : new SimilarWeb();
+		this.csvToModel = csvToModel || new CsvToModel();
+		this.webTraffic = webTraffic || new SimilarWeb();
+
+		if (process.env.NODE_ENV === NODE_TEST_ENV) {
+			this.webTraffic = new WebTrafficStub();
+		}
+
 		Interface.checkImplements(this.webTraffic, WebTrafficInterface);
 
-		this.greenDataAverageBuilder = greenDataAverageBuilder ? greenDataAverageBuilder : new GreenITDataAverageBuilder();
-		this.annualFootprintBuilder = annualFootprintBuilder ? annualFootprintBuilder : new AnnualFootprintBuilder() ;
+		this.greenDataAverageBuilder = greenDataAverageBuilder || new GreenITDataAverageBuilder();
+		this.annualFootprintBuilder = annualFootprintBuilder || new AnnualFootprintBuilder() ;
 	}
 
 	/**
@@ -30,7 +36,7 @@ class GreenITDataWrapperBuilder {
 	 */
 	async execute(csvPath) {
 		/** @type {GreenITDataWrapper} */
-		var greenITDataWrapper = await this.csvToModel.execute(csvPath);
+		const greenITDataWrapper = await this.csvToModel.execute(csvPath);
 		setBaseUrl(greenITDataWrapper);
 		setTotals(greenITDataWrapper);
 		greenITDataWrapper.greenDataAverage = this.greenDataAverageBuilder.execute(greenITDataWrapper);
@@ -54,7 +60,7 @@ class GreenITDataWrapperBuilder {
 		 */
 		function setTotals(greenITDataWrapper) {
 			resetTotals(greenITDataWrapper);
-			var webPageInformationList = greenITDataWrapper.webPageInformationList;
+			const webPageInformationList = greenITDataWrapper.webPageInformationList;
 
 			addTotalsToGreenItDataWrapper(greenITDataWrapper,webPageInformationList);
 
@@ -72,7 +78,7 @@ class GreenITDataWrapperBuilder {
 			 */
 			function addTotalsToGreenItDataWrapper(greenItDataWrapper,webPageInformationList) {
 
-				for (var i=0; i< webPageInformationList.length;i++) {
+				for (let i=0; i< webPageInformationList.length;i++) {
 					greenITDataWrapper.waterConsumptionTotalInCl += webPageInformationList[i].waterConsumptionInCL;
 					greenITDataWrapper.gesTotalInG += webPageInformationList[i].gesInGCO2;
 				}

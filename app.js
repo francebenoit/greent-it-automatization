@@ -1,6 +1,8 @@
 'use strict';
 
+require('custom-env').env()
 require('dotenv').config();
+
 const express = require('express');
 const sls = require('serverless-http');
 const app = express();
@@ -24,7 +26,9 @@ app.set('views','./views');
 app.set('view engine', 'pug');
 
 // dev server
-app.listen(3030);
+const port = process.env.PORT || 3030;
+app.listen(port);
+console.log('running on port ' + port);
 
 module.exports.server = sls(app)
 
