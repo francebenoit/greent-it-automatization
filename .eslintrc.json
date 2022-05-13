@@ -37,6 +37,8 @@
             "ignoreReadBeforeAssign": false
         }],
         "no-var" : "error",
+        "no-console" : "error",
+        "eol-last": ["error", "always"],
         "mocha-no-only/mocha-no-only": [
             "error"
         ],
@@ -73,6 +75,8 @@
         "jsdoc"
     ],
     "globals" : {
-        "uploadPath" : "readonly"
+        "uploadPath" : "readonly",
+        "logger" : "readonly",
+        "webTrafficLogger" : "readonly"
     }
 }
