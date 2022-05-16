@@ -1,17 +1,27 @@
 'use strict';
+
 const https = require('https');
 
+const WebTrafficError = require('../../exceptions/WebTrafficError');
+const LogErrorFormatter = require('../../formatters/LogErrorFormatter');
+
 class SimilarWeb {
+	
+
 	async getTotalVisitPerMonth(url) {
-		try {
+		try {		
 			const httpPromise = getApiCallPromise();
 			let responseBody = await httpPromise;
+			webTrafficLogger.info(responseBody);
 			responseBody = JSON.parse(responseBody);
 
 			return responseBody.engagement.totalVisits;
 		}
 		catch(error) {
-			console.log(error);
+			const webTrafficError = new WebTrafficError(error.message);
+			webTrafficLogger.error(LogErrorFormatter.execute(webTrafficError));
+
+			throw webTrafficError;
 		}
 
 		/**

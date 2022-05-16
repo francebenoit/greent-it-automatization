@@ -3,7 +3,15 @@
 const fs = require('fs');
 const path = require('path');
 
+const WebTrafficError = require('../exceptions/WebTrafficError');
+const LogErrorFormatter = require('../formatters/LogErrorFormatter');
 const FileGenerator = require('../services/fileGenerators/FileGenerator');
+
+const ERROR_MESAGES = {
+	'on_web_traffic_services' : 'error.on.webtraffic.service',
+	'on_file_input' : 'error.on.upload.csv.file.max 1Mb',
+	'unknown' : 'error.server'
+};
 
 /**
  * @param {Request} req
@@ -13,11 +21,7 @@ exports.execute = async function (req,res) {
 	const csv = req.file;
 	const csvPath = csv.path;
 
-	if(fileIsValid() ){
-		await downloadFile();
-	} else {
-		redirectToIndexWithError();
-	}
+	fileIsValid() ? downloadFile(): redirectToIndexWithError();
 	fs.unlinkSync(csvPath);
 
 	/**
@@ -28,20 +32,28 @@ exports.execute = async function (req,res) {
 	}
 
 	/**
+	 * @param {string} errorMessage
 	 * @returns {void}
 	 */
-	function redirectToIndexWithError() {
-		res.render('index', {error: 'Please upload a csv file. Max 1Mb'});
+	function redirectToIndexWithError(errorMessage = ERROR_MESAGES.on_file_input) {
+		res.render('index', {error: errorMessage});
 	}
 
 	/**
 	 * @returns {void}
 	 */
 	async function downloadFile() {
-		const fileGenerator = new FileGenerator();
-		const filename = fileGenerator.getFilename();
-		await fileGenerator.execute(csvPath, filename);
+		try {
+			const fileGenerator = new FileGenerator();
+			const filename = fileGenerator.getFilename();
+			await fileGenerator.execute(csvPath, filename);
 
-		res.download(path.resolve(filename), filename);
+			res.download(path.resolve(filename), filename);
+		} catch (error) {		
+			const errorMessage = error instanceof WebTrafficError ? ERROR_MESAGES.on_web_traffic_services : ERROR_MESAGES.unknown;
+			logger.error(LogErrorFormatter.execute(error));
+
+			redirectToIndexWithError(errorMessage);
+		}
 	}
 };
