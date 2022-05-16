@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 const WebTrafficError = require('../exceptions/WebTrafficError');
 const LogErrorFormatter = require('../formatters/LogErrorFormatter');
@@ -45,10 +44,10 @@ exports.execute = async function (req,res) {
 	async function downloadFile() {
 		try {
 			const fileGenerator = new FileGenerator();
-			const filename = fileGenerator.getFilename();
-			await fileGenerator.execute(csvPath, filename);
+			const filePath = fileGenerator.getFilePath();
+			await fileGenerator.execute(csvPath, filePath);
 
-			res.download(path.resolve(filename), filename);
+			res.download(filePath, filePath);
 		} catch (error) {		
 			const errorMessage = error instanceof WebTrafficError ? ERROR_MESAGES.on_web_traffic_services : ERROR_MESAGES.unknown;
 			logger.error(LogErrorFormatter.execute(error));
