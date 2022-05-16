@@ -15,6 +15,4 @@ footPrintReport.xls
 
 .idea
 .env
-logs/error.log
-logs/combined.log
-logs/web_traffic.log
+logs

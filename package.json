@@ -13,7 +13,8 @@
     "test:e2e-file": "concurrently -k -s first 'cross-env NODE_ENV=test node app.js' 'wait-on http://localhost:3033/ && cross-env NODE_ENV=test mocha $FILE'",
     "test": "npm run test:unit && npm run test:e2e",
     "ci": "npm run lint && npm run test",
-    "clear:logs" : "cat /dev/null > logs/combined.log && cat /dev/null > logs/error.log && cat /dev/null > logs/web_traffic.log"
+    "clear:logs" : "cat /dev/null > logs/combined.log && cat /dev/null > logs/error.log && cat /dev/null > logs/web_traffic.log",
+    "clear:uploaded-files" : "node app/processes/CleanFiles.js"
   },
   "keywords": [],
   "author": "",
