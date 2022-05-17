@@ -16,16 +16,16 @@ class FileGenerator {
 	/**
 	 *
 	 * @param {string} csvPath
-	 * @param {string} filename
+	 * @param {string} filePath
 	 */
-	async execute(csvPath, filename) {
+	async execute(csvPath, filePath) {
 		const greenItData = await this.greenItDataBuilder.execute(csvPath);
 
-		await this.executor.createFile(greenItData,filename);
+		await this.executor.createFile(greenItData,filePath);
 	}
 
-	getFilename() {
-		return this.executor.getFilename();
+	getFilePath() {
+		return this.executor.getFilePath();
 	}
 }
 

@@ -11,7 +11,8 @@ coverage
 
 #files
 uploads
-footPrintReport.xls
+reports
+test/tmp/*
 
 .idea
 .env

@@ -1,3 +1,7 @@
+const fs = require('fs');
+const uniqid = require('uniqid');
+const path = require('path');
+
 const HEADERS = [
 	'Url',
 	'Nombre requêtes',
@@ -21,29 +25,23 @@ const ROW_LABELS = {
 	'olympicSwimmingPool' : 'Nb de piscine olympique (2750m3)'
 };
 
-const FILE_NAME = 'footPrintReport.xls';
-
-const fs = require('fs');
-
+const FILE_NAME = '_footPrintReport.xls';
 const DELIMITER = '\t';
 const ROW_BREAK = '\n';
 
 class GreenITDataExcelGenerator {
 
 	/**
-	 *
 	 * @returns {string}
 	 */
-	getFilename() {
-		return FILE_NAME;
+	getFilePath() {
+		return path.resolve(process.env.REPORT_DIR , uniqid() + FILE_NAME);
 	}
 	/**
 	 * @param {GreenITDataWrapper} greenItData
 	 * @param {string} filename
 	 */
 	async createFile(greenItData, filename) {
-		removeOldFile();
-
 		let excelData='';
 		excelData+=generateRowHeaders();
 		excelData+=generateWebPageInformationRows();
@@ -60,23 +58,11 @@ class GreenITDataExcelGenerator {
 		excelData+=generateFrenchCitizenGes(annualFootprint);
 		excelData+=generateOlympicSwimmingPool(annualFootprint);
 
-
 		fs.appendFileSync(filename, excelData, (err) => {
 			if (err) {
 				throw err;
 			}
 		});
-
-		/**
-		 * @returns {void}
-		 */
-		function removeOldFile() {
-			const actualFilePath = __dirname + '/../../../' + FILE_NAME;
-
-			if (fs.existsSync(actualFilePath)) {
-				fs.unlinkSync(actualFilePath);
-			}
-		}
 
 		/**
 		 * @returns {string}
