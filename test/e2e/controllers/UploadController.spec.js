@@ -5,7 +5,7 @@ require('custom-env').env();
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-const path = require ('path');
+const path = require('path');
 const fs = require('fs');
 const assert = require('assert');
 
@@ -24,20 +24,32 @@ describe('UploadController', () => {
 	});
 
 	it('should upload a file', done => {
+
+		if (!fs.existsSync(process.env.REPORT_DIR)){
+			fs.mkdirSync(process.env.REPORT_DIR);
+		}
+
+		if (!fs.existsSync('uploads')){
+			fs.mkdirSync(path.resolve(uploadPath));
+		}
+
 		chai
 			.request(requestUrl)
 			.post('/')
 			.attach('csv', path.resolve('./test/files/ecoindex.csv'), 'ecoIndex.csv')
 			.end((err, res) => {
 				assert.equal(res.status,200);
-				assert.ok(fs.existsSync(path.resolve('footPrintReport.xls')));
 
-				const actualFile = fs.readFileSync(path.resolve('footPrintReport.xls'));
+				const dir = path.resolve(process.env.REPORT_DIR);			
+				const files = fs.readdirSync(dir);
+				assert.equal(files.length,1);
+
+				const actualFile = fs.readFileSync(path.resolve(dir,files[0]));
 				const expectedFile = fs.readFileSync( path.resolve('test/files/footPrintReportE2EAssertion.xls'));
-
 				assert.equal(actualFile.toString(),expectedFile.toString());
 
 				done();
+				
 			});
 	});
 });
