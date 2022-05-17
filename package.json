@@ -15,7 +15,7 @@
     "test": "npm run test:unit && npm run test:e2e",
     "ci": "npm run lint && npm run test",
     "clear:logs": "cat /dev/null > logs/combined.log && cat /dev/null > logs/error.log && cat /dev/null > logs/web_traffic.log",
-    "clear:uploaded-files": "node app/processes/CleanFiles.js"
+    "clear:tmp-files": "node app/processes/CleanFiles.js"
   },
   "keywords": [],
   "author": "",
