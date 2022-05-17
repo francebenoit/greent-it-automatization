@@ -5,14 +5,16 @@
   "main": "app.js",
   "scripts": {
     "serve": "nodemon app.js",
-    "test:unit": "mocha --recursive test/unit",
     "lint:app": "npx eslint app --fix",
     "lint:test": "npx eslint test --fix",
     "lint": "npm run lint:app && npm run lint:test",
+    "test:unit": "mocha --recursive test/unit",
     "test:e2e": "concurrently -k -s first 'cross-env NODE_ENV=test node app.js' 'wait-on http://localhost:3033/ && cross-env NODE_ENV=test mocha --recursive test/e2e/'",
     "test:e2e-file": "concurrently -k -s first 'cross-env NODE_ENV=test node app.js' 'wait-on http://localhost:3033/ && cross-env NODE_ENV=test mocha $FILE'",
     "test": "npm run test:unit && npm run test:e2e",
-    "ci": "npm run lint && npm run test"
+    "ci": "npm run lint && npm run test",
+    "clear:logs" : "cat /dev/null > logs/combined.log && cat /dev/null > logs/error.log && cat /dev/null > logs/web_traffic.log",
+    "clear:uploaded-files" : "node app/processes/CleanFiles.js"
   },
   "keywords": [],
   "author": "",
@@ -28,13 +30,15 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-validator": "^6.14.0",
+    "express-winston": "^4.2.0",
     "form-data": "^4.0.0",
     "multer": "^1.4.4",
     "nyc": "^15.1.0",
     "pug": "^3.0.2",
     "request": "^2.88.2",
     "serverless-http": "^3.0.1",
-    "wait-on": "^6.0.1"
+    "wait-on": "^6.0.1",
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "eslint": "^8.15.0",
