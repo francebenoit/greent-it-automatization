@@ -12,6 +12,8 @@ const ERROR_MESAGES = {
 	'unknown' : 'error.server'
 };
 
+const TEST_ENV = 'test';
+
 /**
  * @param {Request} req
  * @param {Response} res
@@ -47,7 +49,14 @@ exports.execute = async function (req,res) {
 			const filePath = fileGenerator.getFilePath();
 			await fileGenerator.execute(csvPath, filePath);
 
-			res.download(filePath, filePath);
+			res.download(filePath, filePath, function (err) {
+				if (err) {
+					logger.error(err);
+				}
+				if (process.env.APP_ENV !== TEST_ENV) {
+					fs.unlinkSync(filePath);
+				}
+			});
 		} catch (error) {		
 			const errorMessage = error instanceof WebTrafficError ? ERROR_MESAGES.on_web_traffic_services : ERROR_MESAGES.unknown;
 			logger.error(LogErrorFormatter.execute(error));
