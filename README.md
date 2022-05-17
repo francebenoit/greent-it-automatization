@@ -27,4 +27,4 @@ Go to http://127.0.0.1:3030/ and start sheet generation
 `npm run test` runs both unit and e2e tests  
 
 ## Tools
-`npm run clear:uploaded-files` to remove all uploaded files. They are automatically removed except when an error occured.
+`npm run clear:tmp-files` to remove all uploaded files and generated file after 5min delay. Add argument `delay=false` to avoid the delay. Temporary files are automatically removed except when an error occured.
