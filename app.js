@@ -56,7 +56,6 @@ const webTrafficLogger = winston.createLogger({
 });
 
 //global var
-global.uploadPath = path.resolve(__dirname) + ('/uploads/');
 global.logger = logger;
 global.webTrafficLogger = webTrafficLogger;
 global.LOGS_FOLDER = LOGS_FOLDER;

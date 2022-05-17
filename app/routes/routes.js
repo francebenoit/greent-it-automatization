@@ -1,7 +1,7 @@
 'use strict';
 
 const multer  = require('multer');
-const upload = multer({ dest: uploadPath });
+const upload = multer({ dest: process.env.UPLOAD_DIR });
 
 
 module.exports = function (app) {

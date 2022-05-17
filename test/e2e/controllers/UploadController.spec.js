@@ -25,13 +25,7 @@ describe('UploadController', () => {
 
 	it('should upload a file', done => {
 
-		if (!fs.existsSync(process.env.REPORT_DIR)){
-			fs.mkdirSync(process.env.REPORT_DIR);
-		}
-
-		if (!fs.existsSync('uploads')){
-			fs.mkdirSync(path.resolve(uploadPath));
-		}
+		createDirectories();
 
 		chai
 			.request(requestUrl)
@@ -53,3 +47,17 @@ describe('UploadController', () => {
 			});
 	});
 });
+
+/**
+ *
+ */
+function createDirectories() {
+	if (!fs.existsSync(process.env.REPORT_DIR)) {
+		fs.mkdirSync(process.env.REPORT_DIR);
+	}
+
+	if (!fs.existsSync(process.env.UPLOAD_DIR)) {
+		fs.mkdirSync(process.env.UPLOAD_DIR);
+	}
+}
+
