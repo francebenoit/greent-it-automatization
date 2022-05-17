@@ -75,7 +75,6 @@
         "jsdoc"
     ],
     "globals" : {
-        "uploadPath" : "readonly",
         "logger" : "readonly",
         "webTrafficLogger" : "readonly"
     }
