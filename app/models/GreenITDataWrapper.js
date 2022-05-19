@@ -20,16 +20,21 @@ class GreenITDataWrapper {
 		return this._greenDataAverage;
 	}
 
+	/**
+	 * @param {GreenITDataAverage} value
+	 */
 	set greenDataAverage(value) {
 		this._greenDataAverage = value;
 	}
 
+	/**
+	 * @returns {GreenITDataAverage}
+	 */
 	get webPageInformationList() {
 		return this._webPageInformationList;
 	}
 
 	/**
-	 * 
 	 * @param {WebPageInformation} webPageInformation 
 	 */
 	addWebPageInformation(webPageInformation) {
@@ -37,7 +42,6 @@ class GreenITDataWrapper {
 	}
 
 	/**
-	 *
 	 * @param {AnnualFootprint} annualFootprint
 	 */
 	set annualFootprint(annualFootprint) {

@@ -24,7 +24,6 @@ describe('UploadController', () => {
 	});
 
 	it('should upload a file', done => {
-
 		createDirectories();
 
 		chai

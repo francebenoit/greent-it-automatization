@@ -2,5 +2,4 @@
 
 const Interface = require('../../Interface');
 
-module.exports = new Interface('FileGenerator', 'createFile', 'getFilePath');
-
+module.exports = new Interface('FileGenerator', 'createFile','getFileName');
