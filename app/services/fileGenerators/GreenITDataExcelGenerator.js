@@ -1,6 +1,4 @@
 const fs = require('fs');
-const uniqid = require('uniqid');
-const path = require('path');
 
 const HEADERS = [
 	'Url',
@@ -31,11 +29,11 @@ const ROW_BREAK = '\n';
 
 class GreenITDataExcelGenerator {
 
-	/**
+	/*
 	 * @returns {string}
 	 */
-	getFilePath() {
-		return path.resolve(process.env.REPORT_DIR , uniqid() + FILE_NAME);
+	getFileName() {
+		return FILE_NAME;
 	}
 	/**
 	 * @param {GreenITDataWrapper} greenItData

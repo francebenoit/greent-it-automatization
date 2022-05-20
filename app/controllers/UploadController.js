@@ -5,6 +5,8 @@ const fs = require('fs');
 const WebTrafficError = require('../exceptions/WebTrafficError');
 const LogErrorFormatter = require('../formatters/LogErrorFormatter');
 const FileGenerator = require('../services/fileGenerators/FileGenerator');
+const GreenITDataExcelGenerator = require('../services/fileGenerators/GreenITDataExcelGenerator');
+const GreenITDataImageGenerator = require('../services/fileGenerators/GreenITDataImageGenerator');
 
 const ERROR_MESAGES = {
 	'on_web_traffic_services' : 'error.on.webtraffic.service',
@@ -13,6 +15,7 @@ const ERROR_MESAGES = {
 };
 
 const TEST_ENV = 'test';
+const IMAGE_TYPE = 'image';
 
 /**
  * @param {Request} req
@@ -45,7 +48,7 @@ exports.execute = async function (req,res) {
 	 */
 	async function downloadFile() {
 		try {
-			const fileGenerator = new FileGenerator();
+			const fileGenerator = getFileGeneratorBySubmitType();
 			const filePath = fileGenerator.getFilePath();
 			await fileGenerator.execute(csvPath, filePath);
 
@@ -62,6 +65,16 @@ exports.execute = async function (req,res) {
 			logger.error(LogErrorFormatter.execute(error));
 
 			redirectToIndexWithError(errorMessage);
+		}
+
+		/**
+		 * @returns {FileGeneratorInterface}
+		 */
+		function getFileGeneratorBySubmitType() {
+			const fileType = req.body.fileType;
+			const generator = fileType === IMAGE_TYPE ? new GreenITDataImageGenerator() : new GreenITDataExcelGenerator();
+			
+			return new FileGenerator(generator);
 		}
 	}
 };

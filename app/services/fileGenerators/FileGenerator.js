@@ -1,16 +1,19 @@
 'use strict';
 
-const GreenITDataExcelGenerator = require('./GreenITDataExcelGenerator');
+const uniqid = require('uniqid');
+const path = require('path');
+
 const GreenItDataBuilder = require('../../builders/GreenITDataWrapperBuilder');
 const Interface = require('../../Interface');
 const FileGeneratorInterface = require('./FileGeneratorInterface');
 
 
 class FileGenerator {
-	constructor(executor = null) {
+	constructor(generator) {
 		this.greenItDataBuilder = new GreenItDataBuilder();
-		this.executor = executor || new GreenITDataExcelGenerator();
-		Interface.checkImplements(this.executor, FileGeneratorInterface);
+		Interface.checkImplements(generator, FileGeneratorInterface);
+
+		this.generator = generator;
 	}
 
 	/**
@@ -21,11 +24,11 @@ class FileGenerator {
 	async execute(csvPath, filePath) {
 		const greenItData = await this.greenItDataBuilder.execute(csvPath);
 
-		await this.executor.createFile(greenItData,filePath);
+		await this.generator.createFile(greenItData,filePath);
 	}
 
 	getFilePath() {
-		return this.executor.getFilePath();
+		return path.resolve(process.env.REPORT_DIR , uniqid() + this.generator.getFileName());
 	}
 }
 

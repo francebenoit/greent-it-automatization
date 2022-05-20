@@ -6,8 +6,6 @@ const WebTrafficError = require('../../exceptions/WebTrafficError');
 const LogErrorFormatter = require('../../formatters/LogErrorFormatter');
 
 class SimilarWeb {
-	
-
 	async getTotalVisitPerMonth(url) {
 		try {		
 			const httpPromise = getApiCallPromise();
