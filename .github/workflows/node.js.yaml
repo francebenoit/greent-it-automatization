@@ -25,8 +25,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npx eslint app
-      - run: npx eslint test
-      - run: npm run test:unit
-      - run: npm run test:e2e
+      - name: install canvas packages
+        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev
+      - name: npm ci
+        run: npm ci
+      - name: lint
+        run:  | 
+              npx eslint app
+              npx eslint test
+      - name: test
+        run:  | 
+              npm run test:unit
+              npm run test:e2e
